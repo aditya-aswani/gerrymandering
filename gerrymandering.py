@@ -223,6 +223,7 @@ def egap():
                      rep_lost_votes + rep_surplus_votes as rep
           FROM penn_wasted_votes) x;
     """
+    # Calculating the "wasted" votes for each party by combining their respective lost and surplus votes. Then calculating the difference between the wasted votes.
     
     cursor = connection.cursor()
     
@@ -233,6 +234,7 @@ def egap():
     penn_wasted_total = pd.DataFrame(penn3, columns=['Dem Total', 'Rep Total', 'Difference In Totals'])
     
     penn_gap = (penn_wasted_total.loc[0]['Difference In Totals'])/penn_state_total
+    # Dividing the difference between the wasted votes by the total number of votes in the state of Pennsylvania to get the final efficiency gap
 
     return str('The state of Pennsylvania has a {:.2f}% efficiency gap'.format(abs(penn_gap)*100))
 
